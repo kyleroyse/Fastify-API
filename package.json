@@ -1,0 +1,24 @@
+{
+  "name": "fastify-api",
+  "version": "1.0.0",
+  "description": "A blazing fast REST APIs with Node.js, MongoDB, Fastify and Swagger.",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/nodemon/bin/nodemon.js ./src/index.js",
+    "test": "start:src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ConstructionManagement"
+  },
+  "author": "KyleRoyse",
+  "license": "ISC",
+  "dependencies": {
+    "boom": "^7.3.0",
+    "fastify": "^2.4.1",
+    "fastify-swagger": "^2.4.0",
+    "helmet": "^3.18.0",
+    "mongoose": "^5.5.13",
+    "nodemon": "^1.19.1"
+  }
+}
