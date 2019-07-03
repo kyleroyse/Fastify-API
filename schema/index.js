@@ -20,8 +20,27 @@ const serviceController = require('../controllers/serviceController')
 // Define Object Types
 const carType = new GraphQLObjectType({
 	name: 'Car',
-	fields: () => ({})
-})
+	fields: () => ({
+		_id: { type: GraphQLID },
+		title: { type: GraphQLString },
+		brand: { type: GraphQLString },
+		price: { type: GraphQLString },
+		age: { type: GraphQLInt },
+		owner_id: { type: GraphQLID },
+		owner: {
+			type: ownerType,
+			async resolve(parent, args) {
+				return await ownerController.getSingleOwner({ id: parent.owner_id })
+			}
+		},
+		services: {
+			type: new GraphQLList(serviceType),
+			async resolve(parent, args) {
+				return await serviceController.getCarsServices({ id: parent._id })
+			}
+		}
+	})
+});
 
 const ownerType = new GraphQLObjectType({
 	name: 'Owner',
