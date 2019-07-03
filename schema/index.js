@@ -1,5 +1,5 @@
 // Import External Dependancies
-const graphql = require('graphql')
+const graphql = require('graphql');
 
 // Destructure GraphQL functions
 const {
@@ -56,7 +56,7 @@ const ownerType = new GraphQLObjectType({
 			}
 		}
 	})
-})
+});
 
 const serviceType = new GraphQLObjectType({
 	name: 'Service',
@@ -72,18 +72,41 @@ const serviceType = new GraphQLObjectType({
 			}
 		}
 	})
-})
+});
 
 // Define Root Query
 const RootQuery = new GraphQLObjectType({
 	name: 'RootQueryType',
 	fields: {
-		car: {},
-		cars: {},
-		owner: {},
-		service: {}
+		car: {
+			type: carType,
+			args: { id: { type: GraphQLID } },
+			async resolve(parent, args) {
+				return await carController.getSingleCar(args)
+			}
+		},
+		cars: {
+			type: new GraphQLList(carType),
+			async resolve(parent, args) {
+				return await carController.getCars()
+			}
+		},
+		owner: {
+			type: ownerType,
+			args: { id: { type: GraphQLID } },
+			async resolve(parent, args) {
+				return await ownerController.getSingleOwner(args)
+			}
+		},
+		service: {
+			type: serviceType,
+			args: { id: { type: GraphQLID } },
+			async resolve(parent, args) {
+				return await serviceController.getSingleService(args)
+			}
+		}
 	}
-})
+});
 
 // Define Mutations
 const Mutations = new GraphQLObjectType({
@@ -111,10 +134,10 @@ const Mutations = new GraphQLObjectType({
 			}
 		}
 	}
-})
+});
 
 // Export the schema
 module.exports = new GraphQLSchema({
 	query: RootQuery,
 	mutation: Mutations
-})
+});
