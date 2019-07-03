@@ -13,9 +13,9 @@ const {
 } = graphql
 
 // Import Controllers
-const carController = require('../controllers/carController')
-const ownerController = require('../controllers/ownerController')
-const serviceController = require('../controllers/serviceController')
+const carController = require('../src/controllers/carController')
+const ownerController = require('../src/controllers/ownerController')
+const serviceController = require('../src/controllers/serviceController')
 
 // Define Object Types
 const carType = new GraphQLObjectType({
